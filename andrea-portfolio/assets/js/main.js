@@ -12,3 +12,29 @@ document.querySelectorAll('.card').forEach(card=>card.addEventListener('click',(
 function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 document.querySelector('.modal-close').addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 document.querySelector('.menu').addEventListener('click',()=>document.querySelector('.nav').classList.toggle('open'));document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.nav').classList.remove('open')));
+
+const toolsTrack=document.querySelector('#tools-track');
+const toolSlides=[...document.querySelectorAll('.tool-slide')];
+const toolsPrev=document.querySelector('.tools-prev');
+const toolsNext=document.querySelector('.tools-next');
+const toolsCurrent=document.querySelector('#tools-current');
+const toolsName=document.querySelector('#tools-name');
+let toolIndex=0;
+function updateToolsSlider(){
+  if(!toolsTrack||!toolSlides.length)return;
+  const slide=toolSlides[toolIndex];
+  const viewport=document.querySelector('.tools-viewport');
+  const offset=viewport.clientWidth/2-(slide.offsetLeft+slide.offsetWidth/2);
+  toolsTrack.style.transform=`translateX(${offset}px)`;
+  toolSlides.forEach((item,i)=>item.classList.toggle('active',i===toolIndex));
+  toolsCurrent.textContent=`${String(toolIndex+1).padStart(2,'0')} / ${String(toolSlides.length).padStart(2,'0')}`;
+  toolsName.textContent=slide.dataset.tool;
+}
+function moveTool(direction){toolIndex=(toolIndex+direction+toolSlides.length)%toolSlides.length;updateToolsSlider()}
+if(toolsTrack){
+  toolsPrev.addEventListener('click',()=>moveTool(-1));
+  toolsNext.addEventListener('click',()=>moveTool(1));
+  toolSlides.forEach((slide,index)=>slide.addEventListener('click',()=>{toolIndex=index;updateToolsSlider()}));
+  window.addEventListener('resize',updateToolsSlider);
+  updateToolsSlider();
+}
