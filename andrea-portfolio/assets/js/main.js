@@ -1,17 +1,14 @@
+const base='andrea-portfolio/';
 const projects={
-camugin:{title:'Camügin',images:['assets/images/camugin-1.jpg','assets/images/camugin-2.jpg']},
-cellini:{title:'Cellini Caffè',images:['assets/images/cellini-1.jpg','assets/images/cellini-2.jpg']},
-brugal:{title:'Brugal 1888',images:['assets/images/brugal-1.jpg','assets/images/brugal-4.jpg','assets/images/brugal-6.jpg','assets/images/brugal-7.jpg']},
-garmin:{title:'Garmin',images:['assets/images/garmin-1.jpg','assets/images/garmin-2.jpg']},
-macallan:{title:'The Macallan · Spirit',images:['assets/images/macallan-1.jpg','assets/images/macallan-2.jpg']},
-ginuensis:{title:'Gin Ginuensis',images:['assets/images/ginuensis-1.jpg']},
-bocu:{title:'Bocù',images:['assets/images/bocu-1.jpg','assets/images/bocu-2.jpg']},
-dellepiane:{title:'Paolo Dellepiane',images:['assets/images/dellepiane-1.jpg','assets/images/dellepiane-2.jpg']},
-europam:{title:'Europam HVO GreenTech',images:['assets/images/europam-1.jpg']}
+camugin:{title:'Camügin',meta:'Product / Campaign · Visual direction',images:['camugin-1.jpg','camugin-2.jpg'],text:'Product communication developed from visual direction to final applications.'},
+cellini:{title:'Cellini Caffè',meta:'Editorial / Retail · Visual system',images:['cellini-1.jpg','cellini-2.jpg'],text:'Editorial and product communication for a contemporary Italian roastery.'},
+brugal:{title:'Brugal 1888',meta:'Editorial / Brand · Premium communication',images:['brugal-1.jpg','brugal-4.jpg','brugal-6.jpg','brugal-7.jpg'],text:'A premium editorial system built around image, typography and brand expression.'},
+garmin:{title:'Garmin',meta:'Digital / Product · Wellness communication',images:['garmin-1.jpg','garmin-2.jpg'],text:'Digital product communication within the Garmin wellness ecosystem.'},
+macallan:{title:'The Macallan · Spirit',meta:'Event / Editorial · Visual storytelling',images:['macallan-1.jpg','macallan-2.jpg'],text:'Premium event communication combining editorial composition and visual storytelling.'},
+ginuensis:{title:'Gin Ginuensis',meta:'Packaging · Brand expression',images:['ginuensis-1.jpg'],text:'Packaging and local brand expression focused on a distinctive visual presence.'}
 };
-const modal=document.querySelector('.modal'), gallery=document.querySelector('.modal-gallery'), title=document.querySelector('.modal-title');
-document.querySelectorAll('.card').forEach(card=>card.addEventListener('click',()=>{const p=projects[card.dataset.project];title.textContent=p.title;gallery.innerHTML=p.images.map(src=>`<img src="${src}" alt="${p.title}">`).join('');modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}));
+const modal=document.querySelector('.modal'),gallery=document.querySelector('.modal-gallery'),title=document.querySelector('.modal-title'),meta=document.querySelector('.case-meta');
+document.querySelectorAll('.card').forEach(card=>card.addEventListener('click',()=>{const p=projects[card.dataset.project];if(!p)return;title.textContent=p.title;meta.innerHTML=`<span>${p.meta}</span><p>${p.text}</p>`;gallery.innerHTML=p.images.map(src=>`<img src="${base}assets/images/${src}" alt="${p.title}">`).join('');modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}));
 function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 document.querySelector('.modal-close').addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-document.querySelector('.menu').addEventListener('click',()=>document.querySelector('.nav').classList.toggle('open'));
-document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.nav').classList.remove('open')));
+document.querySelector('.menu').addEventListener('click',()=>document.querySelector('.nav').classList.toggle('open'));document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.nav').classList.remove('open')));
