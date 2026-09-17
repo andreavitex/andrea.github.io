@@ -20,22 +20,23 @@ const toolsPrev=document.querySelector('.tools-prev');
 const toolsNext=document.querySelector('.tools-next');
 const toolsCurrent=document.querySelector('#tools-current');
 const toolsName=document.querySelector('#tools-name');
-let toolIndex=0;
+let toolIndex=3;
 let pointerStartX=null;
 
 function updateToolsSlider(){
   if(!toolsTrack||!toolSlides.length)return;
-  const slide=toolSlides[toolIndex];
-  const offset=toolsViewport.clientWidth/2-(slide.offsetLeft+slide.offsetWidth/2);
-  toolsTrack.style.transform=`translateX(${offset}px)`;
+  const spacing=window.innerWidth<=800?112:190;
   toolSlides.forEach((item,index)=>{
-    const distance=Math.min(Math.abs(index-toolIndex),toolSlides.length-Math.abs(index-toolIndex));
+    const relative=((index-toolIndex+toolSlides.length+Math.floor(toolSlides.length/2))%toolSlides.length)-Math.floor(toolSlides.length/2);
+    const distance=Math.abs(relative);
     item.classList.toggle('active',index===toolIndex);
     item.dataset.position=distance===0?'active':distance===1?'near':distance===2?'mid':'far';
+    item.style.setProperty('--tool-offset',`${relative*spacing}px`);
     item.setAttribute('aria-current',index===toolIndex?'true':'false');
   });
+  const active=toolSlides[toolIndex];
   toolsCurrent.textContent=`${String(toolIndex+1).padStart(2,'0')} / ${String(toolSlides.length).padStart(2,'0')}`;
-  toolsName.textContent=slide.dataset.tool;
+  toolsName.textContent=active.dataset.tool;
 }
 function moveTool(direction){
   toolIndex=(toolIndex+direction+toolSlides.length)%toolSlides.length;
@@ -56,7 +57,7 @@ if(toolsTrack){
   toolsViewport.addEventListener('pointerup',event=>{
     if(pointerStartX===null)return;
     const distance=event.clientX-pointerStartX;
-    if(Math.abs(distance)>35)moveTool(distance>0?-1:1);
+    if(Math.abs(distance)>28)moveTool(distance>0?-1:1);
     pointerStartX=null;
   });
   toolsViewport.addEventListener('pointercancel',()=>{pointerStartX=null});
