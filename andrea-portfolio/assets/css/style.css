@@ -134,3 +134,17 @@
   .modal-hint{left:5vw;right:5vw;bottom:18px;font-size:8px}
 }
 @media(prefers-reduced-motion:reduce){.modal-nav{transition:none}}
+
+/* Tool carousel: real brand icons */
+.tool-slide{padding:0}
+.tool-slide .tool-icon{overflow:hidden;display:grid;place-items:center}
+.tool-slide .tool-icon img{width:52%;height:52%;object-fit:contain;display:block;filter:grayscale(.05);transition:width .64s cubic-bezier(.22,.61,.36,1),height .64s cubic-bezier(.22,.61,.36,1),filter .48s ease,opacity .48s ease}
+.tool-slide.active .tool-icon img{width:58%;height:58%;filter:none}
+.tool-slide[data-position="near"] .tool-icon img{width:50%;height:50%;opacity:.78}
+.tool-slide[data-position="mid"] .tool-icon img{width:46%;height:46%;opacity:.58}
+.tool-slide[data-position="far"] .tool-icon img{width:42%;height:42%;opacity:.35}
+.tool-slide.active span:last-child{display:none}
+@media(max-width:800px){
+  .tool-slide .tool-icon img{width:50%;height:50%}
+  .tool-slide.active .tool-icon img{width:58%;height:58%}
+}
