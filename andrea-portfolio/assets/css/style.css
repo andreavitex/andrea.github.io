@@ -268,3 +268,34 @@
   .tools-showcase .brand-mark.canva{font-size:29px}
   .tools-showcase .brand-mark.openai{font-size:24px}
 }
+
+/* Active tool icon visibility fix */
+.tools-showcase .tool-slide.active{
+  z-index:30;
+  opacity:1 !important;
+  visibility:visible;
+}
+.tools-showcase .tool-slide.active .tool-icon{
+  position:relative;
+  z-index:31;
+  opacity:1 !important;
+  visibility:visible;
+}
+.tools-showcase .tool-slide.active .tool-icon img{
+  display:block !important;
+  visibility:visible !important;
+  width:68% !important;
+  height:68% !important;
+  max-width:none;
+  max-height:none;
+  opacity:1 !important;
+  filter:brightness(0) invert(1) !important;
+  position:relative;
+  z-index:32;
+}
+@media(max-width:800px){
+  .tools-showcase .tool-slide.active .tool-icon img{
+    width:64% !important;
+    height:64% !important;
+  }
+}
