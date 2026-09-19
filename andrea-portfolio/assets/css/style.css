@@ -173,3 +173,16 @@
   .tool-slide.active .tool-icon{width:108px;height:108px}
   .tool-slide.active .tool-icon img{width:50%;height:50%}
 }
+
+/* Reliable inline tool marks: no external image dependencies */
+.brand-mark{display:grid;place-items:center;color:#fff;font-family:Inter,Arial,sans-serif;font-weight:700;line-height:1;letter-spacing:-.07em}
+.brand-mark.ps,.brand-mark.ai,.brand-mark.id{font-size:28px}
+.brand-mark.figma{font-size:48px;letter-spacing:-.12em}
+.brand-mark.canva{font-size:42px}
+.brand-mark.openai{font-size:34px;letter-spacing:0}
+.tool-slide .tool-icon{display:grid;place-items:center}
+.tool-slide .brand-mark{transform:scale(.9);transition:transform .48s ease,opacity .48s ease}
+.tool-slide.active .brand-mark{transform:scale(.84)}
+.tool-slide[data-position="near"] .brand-mark{opacity:.72}
+.tool-slide[data-position="mid"] .brand-mark{opacity:.45}
+.tool-slide[data-position="far"] .brand-mark{opacity:.22}
